@@ -1,0 +1,3 @@
+elasticsearch==8.14.0
+requests==2.25.1
+synutils==0.0.1

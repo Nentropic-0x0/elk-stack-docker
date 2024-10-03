@@ -1,0 +1,12 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /tmp/log/fastapi.log
+  fields:
+    log_type: fastapi
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+logging.level: debug

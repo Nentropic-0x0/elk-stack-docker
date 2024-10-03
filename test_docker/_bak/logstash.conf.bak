@@ -1,0 +1,51 @@
+input {
+  kafka {
+    bootstrap_servers => "redpanda-node-01:9092"
+    topics => ["log_topic"]
+    codec => "json"
+  }
+}
+
+filter {
+  if [type] == "docker" {
+    mutate {
+      add_field => { "event.category" => "container" }
+      add_field => { "event.kind" => "event" }
+      add_field => { "event.type" => "info" }
+      add_field => { "event.action" => "container_start" }
+    }
+  }
+  if [type] == "mongodb" {
+    mutate {
+      add_field => { "event.category" => "database" }
+      add_field => { "event.kind" => "event" }
+      add_field => { "event.type" => "query" }
+      add_field => { "event.action" => "insert" }
+    }
+  }
+  if [type] == "near" {
+    mutate {
+      add_field => { "event.category" => "blockchain" }
+      add_field => { "event.kind" => "event" }
+      add_field => { "event.type" => "transaction" }
+      add_field => { "event.action" => "contract_execution" }
+    }
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://elasticsearch:9200"]
+    index => "ecs-logs-%{+YYYY.MM.dd}"
+  }
+}
+
+
+output {
+   elasticsearch {
+   hosts => "http://elasticsearch:9200"
+   index => "filebeat-test%{+YYYY.MM.DD}"
+   user => "elastic"
+   password => "password"
+ }
+}

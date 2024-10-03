@@ -1,0 +1,18 @@
+server.name: kibana
+server.host: "0.0.0.0"
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+monitoring.ui.container.elasticsearch.enabled: true
+
+# Optional settings for enhanced security and performance
+# server.ssl.enabled: true
+# server.ssl.certificate: /path/to/your/certificate.pem
+# server.ssl.key: /path/to/your/certificate.key
+
+# kibana.index: ".kibana"
+
+logging.dest: stdout
+logging.json: true
+
+# Optional settings for securing Kibana with basic auth
+#elasticsearch.username: "kibana"
+#elasticsearch.password: "Kuy05266#"
